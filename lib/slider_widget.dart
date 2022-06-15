@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:slidable_button/slidable_button.dart';
 import 'constants.dart';
 import 'dart:math';
 
@@ -12,55 +14,86 @@ class SliderWidget extends StatefulWidget {
 class _SliderWidgetState extends State<SliderWidget> {
 
   int height=180;
+  String result='';
+
 
   double double_round(double val, int places){
     num mod = pow(10.0, places);
     return ((val * mod).round().toDouble() / mod);
   }
-  
+
+
   double cm_to_feet_converter(double cm)
   {
     return 0.0328084*cm;
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('HEIGHT',style: TextStyle(fontWeight: FontWeight.bold,color: Color(0xFF8D8E98)),),
+
+        HorizontalSlidableButton(
+              width: MediaQuery.of(context).size.width / 3,
+              buttonWidth: 60.0,
+              buttonColor: Color(0xFFEB1555),
+              color:Color(0xFF111328),
+              dismissible: false,
+              label: Center(child: Text('HEIGHT',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('CM'),
+                    Text('FT'),
+                  ],
+                ),
+              ),
+              onChanged: (position) {
+                setState(() {
+                  if (position == SlidableButtonPosition.end) {
+                    result = 'ft';
+                  } else {
+                    result = 'cm';
+                  }
+                });
+              },
+            ),
+
+        SizedBox(height: 15,),
 
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(height.toString(),style: kNumberTextStyle,),
-            SizedBox(width:2.5,),
-            Text('cm',style: kLabelTextStyle,),
-            SizedBox(width: 30,),
-            Text(double_round(cm_to_feet_converter(height.toDouble()),1).toString(),style: kNumberFeetTextStyle,),
-            SizedBox(width:2.5,),
-            Text('ft',style: kFeetLabelTextStyle,),
+            Text(result=='cm'?height.toString():double_round(cm_to_feet_converter(height.toDouble()),1).toString(),style: kNumberTextStyle,),
+            Text(result=='cm'?'cm':'ft',style: kLabelTextStyle,),
           ],
         ),
 
-        Slider(
-            activeColor: Color(0xFF1EB1555),
-            inactiveColor:Color(0xFF8D8E98),
-            value: height.toDouble(),
-            min: 120 ,
-            max: 220,
-            onChanged: (double newValue) {
+        SliderTheme(
+          data: SliderTheme.of(context).copyWith(
+            activeTrackColor: Colors.white,
+            thumbColor:Color(0xFF1EB1555),
+            thumbShape:RoundSliderThumbShape(enabledThumbRadius: 10.0),
+            overlayColor:Color(0x291EB1555),
+            overlayShape: RoundSliderOverlayShape(overlayRadius: 20)
 
-            setState(() {
-
-              height=newValue.round();
-
-
-            });
-
-
-            }
+          ),
+          child: Slider(
+              inactiveColor:Color(0xFF8D8E98),
+              value: height.toDouble(),
+              min: 120,
+              max: 220,
+              onChanged: (double newValue) {
+              setState(() {
+                height=newValue.round();
+                });
+              }
+          ),
         ),
 
       ],
