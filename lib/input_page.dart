@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'reusable_card.dart';
 import 'gender_card_child.dart';
-import 'gesture_widget.dart';
+import 'custom_weight_height_button.dart';
 import 'slider_widget.dart';
 
 const activeCardColor = Color(0xFF1D1E33);
@@ -73,19 +73,24 @@ class _InputPageState extends State<InputPage> {
               ],
             )
           ),
-          Expanded(child: GestureDetect(wid:ReusableCard(colour: activeCardColor,cardChild: SliderWidget()),
-          ),),
+
+          Expanded(child:ReusableCard(colour: activeCardColor,cardChild: SliderWidget()),),
+
           Expanded(
               child:Row(
             children: [
-              Expanded(child:GestureDetect(wid:ReusableCard(colour: activeCardColor,cardChild: CardChild(gender: 'MALE',)),
-              ),),
-              Expanded(child:
-                  GestureDetect(wid:
-                  ReusableCard(colour: activeCardColor,cardChild: CardChild(gender: 'MALE',),),),
+              Expanded(
+                child:
+                ReusableCard(colour: activeCardColor,
+                    cardChild:WeightAgeStateLessWidget(title : 'WEIGHT',),
+                ),
+              ),
+              Expanded(
+                child:
+                  ReusableCard(colour: activeCardColor,cardChild:WeightAgeStateLessWidget(title: 'AGE',),),
               ),
             ],
-          )
+           ),
           ),
 
           Container(
