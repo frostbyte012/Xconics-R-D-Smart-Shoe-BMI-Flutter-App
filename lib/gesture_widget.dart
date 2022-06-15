@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class GestureDetect extends StatelessWidget {
 
   const GestureDetect({required this.wid,});
