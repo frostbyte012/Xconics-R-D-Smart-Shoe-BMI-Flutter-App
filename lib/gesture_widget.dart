@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 
 class GestureDetect extends StatelessWidget {
 
-  const GestureDetect({required this.wid,});
+  const GestureDetect({required this.wid,required this.func});
   final Widget wid;
+  final Function func;
 
-  testFun()
-  {
-    print("Yes! It's Working !");
-  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: testFun,
+      onTap: ()
+      {
+        func();
+
+      },
       child: wid,
     );
   }
