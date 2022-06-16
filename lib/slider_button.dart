@@ -6,6 +6,7 @@ class HorizontalSliderButtonWidget extends StatefulWidget {
   HorizontalSliderButtonWidget({
 
     required this.result
+
 });
 
   final String result;
@@ -39,9 +40,9 @@ class _HorizontalSliderButtonWidgetState extends State<HorizontalSliderButtonWid
       onChanged: (position) {
         setState(() {
           if (position == SlidableButtonPosition.end) {
-             = 'ft';
+             widget.result = 'ft';
           } else {
-             = 'cm';
+             widget.result = 'cm';
           }
         });
       },
@@ -79,9 +80,9 @@ class _VerticalSliderButtonState extends State<VerticalSliderButton> {
       onChanged: (position) {
         setState(() {
           if (position == SlidableButtonPosition.end) {
-            result = 'Button is on the bottom';
+            widget.result = 'Button is on the bottom';
           } else {
-            result = 'Button is on the top';
+            widget.result = 'Button is on the top';
           }
         });
       },
