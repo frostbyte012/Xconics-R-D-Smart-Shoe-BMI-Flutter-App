@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:slidable_button/slidable_button.dart';
+import 'dart:io';
 import 'constants.dart';
 import 'dart:math';
 
@@ -15,7 +16,12 @@ class _SliderWidgetState extends State<SliderWidget> {
 
   int height=180;
   String result='';
+  final filename='lib/height.txt';
 
+
+  void writeHeight () async {
+    File(filename).writeAsString(height.toString());
+  }
 
   double double_round(double val, int places){
     num mod = pow(10.0, places);
@@ -90,7 +96,12 @@ class _SliderWidgetState extends State<SliderWidget> {
               max: 220,
               onChanged: (double newValue) {
               setState(() {
+
+
                 height=newValue.round();
+                writeHeight();
+
+
                 });
               }
           ),
